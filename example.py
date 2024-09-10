@@ -1,4 +1,4 @@
-import ollama 
+import ollama
 import json
 import requests
 from rich import print
