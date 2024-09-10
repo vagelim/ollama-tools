@@ -2,3 +2,4 @@ ollama
 rich
 requests
 argparse
+beautifulsoup4
