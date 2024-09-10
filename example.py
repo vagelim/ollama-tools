@@ -7,6 +7,7 @@ import os
 import logging
 import sys
 import argparse
+import readline
 
 from sample_functions import do_math, get_current_time, get_current_weather, query_duckduckgo
 from ollama_tools import  generate_function_description, use_tools
@@ -43,6 +44,17 @@ def query_model(messages, tools):
     )
     return response
 
+# Configure readline
+readline.parse_and_bind('tab: complete')
+readline.set_history_length(1000)
+
+# Try to read history from file
+history_file = os.path.expanduser('~/.ollama_chat_history')
+try:
+    readline.read_history_file(history_file)
+except FileNotFoundError:
+    pass
+
 while True:
     try:
         query = input()
@@ -69,4 +81,7 @@ while True:
     result = response['message']['content']
     print(result)
     messages.append(("assistant", result))
+
+# Save readline history
+readline.write_history_file(history_file)
 
